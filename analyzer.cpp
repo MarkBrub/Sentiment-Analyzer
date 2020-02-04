@@ -15,7 +15,7 @@ void analyzer::inputTweets(std::ifstream& fin) {
         strand word(16);
 
         word = str.popFirstSegment(' ');
-        while(word != "") {
+        while(!word.empty()) {
             if(word != "\r") {
                 t->m_words.push_back(word);
                 //output();
@@ -31,6 +31,6 @@ void analyzer::inputTweets(std::ifstream& fin) {
 void analyzer::output() {
     unordered_map<strand, int>:: iterator x;
     for (x = freqency.begin(); x != freqency.end(); x++) {
-        cout << "(" << x->first << ", " << x->second << ")";
+        cout << "(" << x->first << ", " << x->second << ")" << std::endl;
     }
 }

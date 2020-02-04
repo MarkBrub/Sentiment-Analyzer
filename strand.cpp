@@ -94,7 +94,7 @@ void strand::clear() {
     memset(m_data, 0, m_size);
 }
 bool strand::empty() const {
-    return size();
+    return !size();
 }
 
 //element access
@@ -389,4 +389,7 @@ void strand::removeFirstSegment(char delimiter) {
 }
 long strand::strtol() {
     return std::strtol(m_data, nullptr, 10);
+}
+char *strand::strtok() {
+    return nullptr;
 }

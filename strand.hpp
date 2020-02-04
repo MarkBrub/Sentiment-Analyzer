@@ -72,6 +72,7 @@ public:
     strand popLastSegment(char delimiter = ',');
     void removeFirstSegment(char delimiter = ',');
     long strtol();
+    char* strtok();
 };
 
 //For use in std::unordered_map

@@ -1,11 +1,13 @@
 #include <iostream>
-#include <fstream>
+#include "strand.hpp"
+#include "analyzer.hpp"
 
+int main(int argc, char **argv) {
+    std::ifstream fin(argv[5]);
+    analyzer anal;
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    std::ofstream fout("output01.txt");
-    fout << "Hello world!" << std::endl;
-    fout.close();
+    anal.inputTweets(fin);
+    anal.output();
+
     return 0;
 }

@@ -18,7 +18,7 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         targetFile.getline(targetLine, 32);
         strand data(dataLine);
         strand target(targetLine);
-        strand word(128);
+        strand word(64);
 
         //remove the rowNum column
         target.removeFirstSegment();
@@ -31,14 +31,16 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         word = data.popFirstSegment(' ');
         while(word[0] != '~') {
             //make sure the first char is a letter
-            //if(word[0] > 47 && word[0] < 123 && word[0] != 64) {
-                //word.toLower();
+            if(word[0] > 47 && word[0] < 123 && word[0] != 64) {
+                word.toLower();
                 t->m_words.push_back(word);
                 if(word.size() > 2) {
                     freqency[word] += sentiment;
                 }
-            //}
-            word = data.popFirstSegment(' ');
+            }
+
+            word = data.popFirstSegment(32);
+
         }
 
         tweets.push_back(t);

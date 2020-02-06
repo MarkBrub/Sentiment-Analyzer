@@ -358,7 +358,7 @@ strand strand::popFirstSegment(char delimiter) {
         if(x == m_size || m_data[x] == delimiter) {
             if(x == 0) {
                 erase(0, 1);
-                strand temp(delimiter);
+                strand temp('!');
                 //in case the delimiter is ' '
                 return temp;
             }

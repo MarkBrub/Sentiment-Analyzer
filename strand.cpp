@@ -106,8 +106,9 @@ bool strand::empty() const {
 //element access
 char& strand::operator[](int x) {
 
-    if(x >= m_capacity) {
-        std::cout << "operator[]: access out of range " << m_data[x] << " " << (int)*m_data <<  std::endl;
+    if(x >= m_size) {
+        throw std::out_of_range("I have no idea why this hits");
+        //std::cout << "operator[]: access out of range " << m_data[x] << " " << (int)*m_data <<  std::endl;
         exit(2);
     }
 
@@ -355,10 +356,10 @@ strand strand::popFirstSegment(char delimiter) {
     }
 
     for(int x = 0; x < m_size; x++) {
-        if(x == m_size || m_data[x] == delimiter) {
+        if(m_data[x] == delimiter) {
             if(x == 0) {
                 erase(0, 1);
-                strand temp('!');
+                strand temp(delimiter);
                 //in case the delimiter is ' '
                 return temp;
             }

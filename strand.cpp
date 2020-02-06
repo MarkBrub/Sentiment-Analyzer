@@ -18,7 +18,7 @@ strand::strand(const strand& str) {
 }
 strand::strand(const char* str) {
     m_size = strlen(str);
-    if(m_size == 0) return;
+    //if(m_size == 0) return;
 
     m_capacity = m_size;
     m_data = new char[m_size];

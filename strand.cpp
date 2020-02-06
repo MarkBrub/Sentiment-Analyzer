@@ -24,7 +24,7 @@ strand::strand(const char* str) {
     m_data = new char[m_size];
     memcpy(m_data, str, m_size);
 }
-strand::strand(const char c) {
+strand::strand(char c) {
     m_size = 1;
     m_capacity = 1;
     m_data = new char[m_size];

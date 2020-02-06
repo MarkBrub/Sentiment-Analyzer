@@ -18,8 +18,9 @@ strand::strand(const strand& str) {
 }
 strand::strand(const char* str) {
     m_size = strlen(str);
-    m_capacity = m_size;
+    if(m_size == 0) return;
 
+    m_capacity = m_size;
     m_data = new char[m_size];
     memcpy(m_data, str, m_size);
 }

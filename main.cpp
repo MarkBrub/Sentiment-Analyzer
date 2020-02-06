@@ -15,6 +15,7 @@ int main(int argc, char **argv) {
     std::ios_base::sync_with_stdio(false);
     std::ifstream data(argv[1]);
     std::ifstream target(argv[2]);
+    std::ofstream output("output01.txt");
     analyzer anal;
 
     anal.inputTweets(data, target);
@@ -22,6 +23,7 @@ int main(int argc, char **argv) {
 
     data.close();
     target.close();
+    output.close();
 
     return 0;
 }

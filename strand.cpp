@@ -108,15 +108,10 @@ char& strand::operator[](int x) {
 
     if(x >= m_capacity) {
         std::cout << "operator[]: access out of range " << *m_data << " " << (int)*m_data <<  std::endl;
+        exit(2);
     }
 
-    if(m_capacity == 0) {
-        std::cout << m_capacity << std::endl;
-        //throw std::invalid_argument("0 bad");
-        return *m_data;
-    }
-
-    return *(m_data + x);
+    return m_data[x];
 }
 const char& strand::operator[](int x) const {
     if(x >= m_capacity) {
@@ -124,7 +119,7 @@ const char& strand::operator[](int x) const {
         outputValues();
     }
 
-    return *(m_data + x);
+    return m_data[x];
 }
 char& strand::front() {
     if(m_size < 1) {

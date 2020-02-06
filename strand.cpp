@@ -24,6 +24,12 @@ strand::strand(const char* str) {
     m_data = new char[m_size];
     memcpy(m_data, str, m_size);
 }
+strand::strand(const char c) {
+    m_size = 1;
+    m_capacity = 1;
+    m_data = new char[m_size];
+    m_data[0] = c;
+}
 
 //destructor
 strand::~strand() {
@@ -95,7 +101,7 @@ void strand::clear() {
     memset(m_data, 0, m_size);
 }
 bool strand::empty() const {
-    return (m_size == 0);
+    return !m_size;
 }
 
 //element access
@@ -354,7 +360,6 @@ strand strand::popFirstSegment(char delimiter) {
                 erase(0, 1);
                 strand temp(delimiter);
                 //in case the delimiter is ' '
-                temp.m_size;
                 return temp;
             }
             strand temp(x);

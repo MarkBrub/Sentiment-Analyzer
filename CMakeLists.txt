@@ -6,13 +6,13 @@ set (input01 "dev-train-data.csv")
 set (input02 "dev-train-target.csv")
 set (input03 "dev-test-data.csv")
 set (input04 "dev-test-target.csv")
-set (input05 "small-data.csv")
-set (input06 "small-target.csv")
+set (input05 "dev-train-data-sm.csv")
+set (input06 "dev-train-target-sm.csv")
 
 # Copy data files to build dir
-foreach(file IN LISTS input01 input02 input03 input04 input05 input 06)
+foreach(file IN LISTS input05 input06 input03 input04)
     configure_file(${file} ${file} COPYONLY)
 endforeach()
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(${EXE_NAME} main.cpp strand.cpp analyzer.cpp tweet.cpp)
+add_executable(${EXE_NAME} main.cpp strand.cpp analyzer.cpp tweet.cpp catch.hpp catch.cpp)

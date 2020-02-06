@@ -299,7 +299,7 @@ bool operator==(const strand& lhs, const strand& rhs) {
     return *lhs.data() == *rhs.data(); 
 }
 bool operator==(const strand& lhs, const char* rhs) {
-    if(std::strcmp(rhs, "") != 0) return lhs.empty();
+    if(std::strlen(rhs) == 0) return lhs.empty();
     if(lhs.m_data == nullptr) return false;
     return *lhs.m_data == *rhs;
 }

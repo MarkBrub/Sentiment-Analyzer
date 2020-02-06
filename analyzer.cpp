@@ -18,14 +18,15 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         targetFile.getline(targetLine, 32);
         strand data(dataLine);
         strand target(targetLine);
+        strand word(128);
 
-        data.removeFirstSegment();
+        //remove the rowNum column
         target.removeFirstSegment();
+        data.removeFirstSegment();
+        //get the tweet sentiment as positive or negative
+        int sentiment = (target[0] == '0') ? -1 : 1;
 
         Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
-        //Tweet* t = new Tweet();
-
-        strand word(128);
 
         word = data.popFirstSegment(' ');
         while(word[0] != '~') {
@@ -34,8 +35,7 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
                 word.toLower();
                 t->m_words.push_back(word);
                 if(word.size() > 2) {
-                    if(target[0] == '0') freqency[word]--;
-                    if(target[0] == '4') freqency[word]++;
+                    freqency[word] += sentiment;
                 }
             }
             word = data.popFirstSegment(' ');
@@ -43,10 +43,13 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
 
         tweets.push_back(t);
     }
+
+    delete[] dataLine;
+    delete[] targetLine;
 }
 void analyzer::output() {
-    unordered_map<strand, int>:: iterator x;
+    std::unordered_map<strand, int>:: iterator x;
     for (x = freqency.begin(); x != freqency.end(); x++) {
-        if(x->second > 30 || x->second < -30) cout << "(" << x->first << ", " << x->second << ")" << std::endl;
+        if(x->second > 100 || x->second < -100) std::cout << "(" << x->first << ", " << x->second << ")" << std::endl;
     }
 }

@@ -398,9 +398,9 @@ void strand::toLower() {
         }
     }
 }
-long strand::strtol() {
+long long strand::strtol() {
     char* c = c_str();
-    long temp = std::strtol(c, nullptr, 10);
+    long long temp = std::strtoll(c, nullptr, 10);
     delete[] c;
 
     return temp;

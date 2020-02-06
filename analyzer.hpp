@@ -7,7 +7,7 @@
 #include "tweet.hpp"
 
 class analyzer {
-    unordered_map<strand, int> freqency;
+    std::unordered_map<strand, int> freqency;
     std::vector<Tweet*> tweets;
 public:
     ~analyzer();

@@ -72,7 +72,7 @@ public:
     strand popLastSegment(char delimiter = ',');
     void removeFirstSegment(char delimiter = ',');
     void toLower();
-    long strtol();
+    long long strtol();
     char* strtok(const char* delimiters);
 };
 

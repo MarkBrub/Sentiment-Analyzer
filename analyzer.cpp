@@ -31,13 +31,13 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         word = data.popFirstSegment(' ');
         while(word[0] != '~') {
             //make sure the first char is a letter
-            if(word[0] > 47 && word[0] < 123 && word[0] != 64) {
+            //if(word[0] > 47 && word[0] < 123 && word[0] != 64) {
                 word.toLower();
                 t->m_words.push_back(word);
                 if(word.size() > 2) {
                     freqency[word] += sentiment;
                 }
-            }
+            //}
             word = data.popFirstSegment(' ');
         }
 

@@ -71,8 +71,9 @@ public:
     strand popFirstSegment(char delimiter = ',');
     strand popLastSegment(char delimiter = ',');
     void removeFirstSegment(char delimiter = ',');
+    void toLower();
     long strtol();
-    char* strtok();
+    char* strtok(const char* delimiters);
 };
 
 //For use in std::unordered_map
@@ -80,12 +81,10 @@ template <> struct std::hash<strand> {
     size_t operator()(const strand str) const {
         //adapted from:
         // http://www.cse.yorku.ca/~oz/hash.html
-        char* s = str.data();
         size_t h = 5381;
-        int c;
 
-        while ((c = *s++)) {
-            h = ((h << 5) + h) + c;
+        for(int x = 0; x < str.size(); x++) {
+            h = ((h << 5) + h) + str[x];
         }
 
         return h;

@@ -231,7 +231,8 @@ char strand::pop_back() {
 char* strand::c_str() const {
     //return a c-string that is not stored in the class
     char* temp = new char[m_size + 1];
-    temp[m_size + 1] = '\0';
+    memcpy(temp, m_data, m_size);
+    temp[m_size] = '\0';
 
     return temp;
 }
@@ -333,7 +334,10 @@ void strand::outputValues() const {
     }
 }
 strand strand::popFirstSegment(char delimiter) {
-    if(m_size == 0) return strand("");
+    if(m_size == 0){
+        strand temp("~");
+        return temp;
+    }
 
     for(int x = 0; x < m_size; x++) {
         if(x == m_size || m_data[x] == delimiter) {
@@ -341,7 +345,7 @@ strand strand::popFirstSegment(char delimiter) {
                 erase(0, 1);
                 strand temp(delimiter);
                 //in case the delimiter is ' '
-                temp.m_size = 1;
+                temp.m_size;
                 return temp;
             }
             strand temp(x);
@@ -387,9 +391,20 @@ void strand::removeFirstSegment(char delimiter) {
         }
     }
 }
-long strand::strtol() {
-    return std::strtol(m_data, nullptr, 10);
+void strand::toLower() {
+    for(int x = 0; x < m_size; x++) {
+        if(m_data[x] > 64 && m_data[x] < 91) {
+            m_data[x] += 32;
+        }
+    }
 }
-char *strand::strtok() {
-    return nullptr;
+long strand::strtol() {
+    char* c = c_str();
+    long temp = std::strtol(c, nullptr, 10);
+    delete[] c;
+
+    return temp;
+}
+char* strand::strtok(const char* delimiters) {
+    return std::strtok(m_data, delimiters);
 }

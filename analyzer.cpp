@@ -1,28 +1,44 @@
 #include "analyzer.hpp"
 
-void analyzer::inputTweets(std::ifstream& fin) {
-    char* line = new char[2048];
+analyzer::~analyzer() {
+    for(int x = 0; x < tweets.size(); x++) {
+        delete tweets[x];
+    }
+}
+
+void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
+    char* dataLine = new char[2048];
+    char* targetLine = new char[32];
 
     //remove first line
-    fin.getline(line, 2048);
+    dataFile.getline(dataLine, 2048);
+    targetFile.getline(targetLine, 32);
 
-    while(fin.getline(line, 2048)) {
-        strand str(line);
-        str.removeFirstSegment();
+    while(dataFile.getline(dataLine, 2048)) {
+        targetFile.getline(targetLine, 32);
+        strand data(dataLine);
+        strand target(targetLine);
 
-        Tweet* t = new Tweet(str.popFirstSegment().strtol(), str.popFirstSegment());
+        data.removeFirstSegment();
+        target.removeFirstSegment();
 
-        strand word(16);
+        Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
+        //Tweet* t = new Tweet();
 
-        word = str.popFirstSegment(' ');
-        while(!word.empty()) {
-            if(word != "\r") {
+        strand word(128);
+
+        word = data.popFirstSegment(' ');
+        while(word[0] != '~') {
+            //make sure the first char is a letter
+            if(word[0] > 47 && word[0] < 123 && word[0] != 64) {
+                word.toLower();
                 t->m_words.push_back(word);
-                //output();
-                //std::cout << std::endl;
-                freqency[word]++;
+                if(word.size() > 2) {
+                    if(target[0] == '0') freqency[word]--;
+                    if(target[0] == '4') freqency[word]++;
+                }
             }
-            word = str.popFirstSegment(' ');
+            word = data.popFirstSegment(' ');
         }
 
         tweets.push_back(t);
@@ -31,6 +47,6 @@ void analyzer::inputTweets(std::ifstream& fin) {
 void analyzer::output() {
     unordered_map<strand, int>:: iterator x;
     for (x = freqency.begin(); x != freqency.end(); x++) {
-        cout << "(" << x->first << ", " << x->second << ")" << std::endl;
+        if(x->second > 30 || x->second < -30) cout << "(" << x->first << ", " << x->second << ")" << std::endl;
     }
 }

@@ -10,6 +10,8 @@ class analyzer {
     unordered_map<strand, int> freqency;
     std::vector<Tweet*> tweets;
 public:
-    void inputTweets(std::ifstream& fin);
+    ~analyzer();
+
+    void inputTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     void output();
 };

@@ -3,11 +3,16 @@
 #include "analyzer.hpp"
 
 int main(int argc, char **argv) {
-    std::ifstream fin(argv[5]);
+    std::ios_base::sync_with_stdio(false);
+    std::ifstream data(argv[1]);
+    std::ifstream target(argv[2]);
     analyzer anal;
 
-    anal.inputTweets(fin);
+    anal.inputTweets(data, target);
     anal.output();
+
+    data.close();
+    target.close();
 
     return 0;
 }

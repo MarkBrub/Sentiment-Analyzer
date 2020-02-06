@@ -55,7 +55,7 @@ jobs:
         run: ./$EXE_NAME $INPUT_FILES $OUTPUT_FILES
 
       - name: Run tests
-        working -directory: ${{runner.workspace}}/build
+        working-directory: ${{runner.workspace}}/build
         shell: bash
         run: ./$EXE_NAME
 

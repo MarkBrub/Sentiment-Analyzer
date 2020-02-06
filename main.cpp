@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     analyzer anal;
 
     anal.inputTweets(data, target);
-    //anal.output();
+    anal.output();
 
     data.close();
     target.close();

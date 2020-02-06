@@ -298,6 +298,7 @@ bool operator==(const strand& lhs, const strand& rhs) {
 }
 bool operator==(const strand& lhs, const char* rhs) {
     if(lhs.m_data == nullptr) return false;
+    if(strcmp(rhs, "")) return lhs.empty();
     return *lhs.m_data == *rhs;
 }
 bool operator!=(const strand& lhs, const strand& rhs) {

@@ -29,7 +29,7 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
 
         word = data.popFirstSegment(' ');
-        while(word[0] != '~') {
+        while(!word.empty()) {
             //make sure the first char is a letter
             if(word[0] > 47 && word[0] < 123 && word[0] != 64) {
                 word.toLower();

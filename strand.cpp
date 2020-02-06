@@ -293,12 +293,13 @@ strand operator+(strand lhs, const char* rhs) {
     return lhs;
 }
 bool operator==(const strand& lhs, const strand& rhs) {
+    if(lhs.empty() || rhs.empty()) return lhs.empty() && rhs.empty();
     if(lhs.m_data == nullptr || rhs.m_data == nullptr) return false;
     return *lhs.data() == *rhs.data(); 
 }
 bool operator==(const strand& lhs, const char* rhs) {
-    if(lhs.m_data == nullptr) return false;
     if(strcmp(rhs, "")) return lhs.empty();
+    if(lhs.m_data == nullptr) return false;
     return *lhs.m_data == *rhs;
 }
 bool operator!=(const strand& lhs, const strand& rhs) {

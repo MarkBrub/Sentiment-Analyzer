@@ -107,7 +107,7 @@ bool strand::empty() const {
 char& strand::operator[](int x) {
 
     if(x >= m_capacity) {
-        std::cout << "operator[]: access out of range " << *m_data << " " << (int)*m_data <<  std::endl;
+        std::cout << "operator[]: access out of range " << m_data[x] << " " << (int)*m_data <<  std::endl;
         exit(2);
     }
 

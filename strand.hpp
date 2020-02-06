@@ -16,6 +16,7 @@ public:
     explicit strand(int len);
     strand(const strand& str);
     strand(const char* str);
+    strand(char c);
 
     //destructor
     ~strand();

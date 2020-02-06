@@ -95,7 +95,7 @@ void strand::clear() {
     memset(m_data, 0, m_size);
 }
 bool strand::empty() const {
-    return !size();
+    return (m_size == 0);
 }
 
 //element access

@@ -13,5 +13,6 @@ public:
     ~analyzer();
 
     void inputTweets(std::ifstream& dataFile, std::ifstream& targetFile);
-    void output();
+    void classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile);
+    void output(int threshold = 50);
 };

@@ -48,9 +48,14 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     delete[] dataLine;
     delete[] targetLine;
 }
-void analyzer::output() {
+
+void analyzer::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
+
+}
+
+void analyzer::output(int threshold) {
     std::unordered_map<strand, int>:: iterator x;
     for (x = freqency.begin(); x != freqency.end(); x++) {
-        if(x->second > 100 || x->second < -100) std::cout << "(" << x->first << ", " << x->second << ")" << std::endl;
+        if(x->second > threshold || x->second < -threshold) std::cout << "(" << x->first << ", " << x->second << ")" << std::endl;
     }
 }

@@ -32,6 +32,8 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         //Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
         Tweet* t = new Tweet();
 
+        std::cout << "Hit" << std::endl;
+
         while(data.size() > 0) {
             word = data.popLastSegment(' ');
             //make sure the first char is a letter

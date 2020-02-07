@@ -32,7 +32,7 @@ strand::strand(char c) {
 
 //destructor
 strand::~strand() {
-    delete[] m_data;
+    if(m_data != nullptr) delete[] m_data;
 }
 
 //assignment operators

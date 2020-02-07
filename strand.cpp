@@ -40,7 +40,7 @@ strand& strand::operator=(const strand& str) {
     if(*this == str) return *this;
 
     if(str.size() > m_capacity) resize(str.size());
-    if(str.size() < m_size) erase(str.size(), m_size - str.size());
+    //if(str.size() < m_size) erase(str.size(), m_size - str.size());
     memcpy(m_data, str.data(), str.size());
     m_size = str.size();
 
@@ -385,17 +385,38 @@ strand strand::popFirstSegment(char delimiter) {
 strand strand::popLastSegment(char delimiter) {
     for(int x = m_size - 1; x >= 0; x--) {
         if(m_data[x] == delimiter) {
-            strand temp(m_size - x - 1);
+            int size = m_size - x - 1;
+
+            if(size == 0) {
+                m_size--;
+                return strand(delimiter);
+            }
+
+            strand temp(size);
 
             //dont include the delimiter character
             memcpy(temp.m_data, m_data + x + 1, m_size - x - 1);
             temp.m_size = m_size - x - 1;
-            erase(x, m_size - x);
+            m_size -= (m_size - x);
+
+            //remove any extra white space
+            while(x > 0 && m_data[x - 1] == delimiter) {
+                m_size--;
+                x--;
+            }
+
 
             return temp;
         } 
     }
-    return strand("");
+
+    if(m_size > 0) {
+        strand temp(m_size);
+        memcpy(temp.m_data, m_data, m_size);
+        temp.m_size = m_size;
+        m_size = 0;
+        return temp;
+    } else throw std::logic_error("String empty");
 }
 void strand::removeFirstSegment(char delimiter) {
     for(int x = 0; x < m_size; x++) {

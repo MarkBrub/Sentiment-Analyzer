@@ -108,8 +108,7 @@ char& strand::operator[](int x) {
 
     if(x >= m_size) {
         throw std::out_of_range("I have no idea why this hits");
-        //std::cout << "operator[]: access out of range " << m_data[x] << " " << (int)*m_data <<  std::endl;
-        exit(2);
+        std::cout << "operator[]: access out of range " << m_data[x] << " " << (int)*m_data <<  std::endl;
     }
 
     return m_data[x];

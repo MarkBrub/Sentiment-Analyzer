@@ -23,10 +23,13 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         //remove the rowNum column
         target.removeFirstSegment();
         data.removeFirstSegment();
+        data.removeFirstSegment();
+        data.removeFirstSegment();
         //get the tweet sentiment as positive or negative
         int sentiment = (target[0] == '0') ? -1 : 1;
 
-        Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
+        //Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
+        Tweet* t = new Tweet();
 
         while(data.size() > 0) {
             word = data.popLastSegment(' ');

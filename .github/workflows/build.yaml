@@ -4,7 +4,7 @@ on: [push]
 
 env:
   EXE_NAME: SentimentAnalyzer
-  INPUT_FILES: dev-train-data-sm.csv dev-train-target.csv-sm dev-test-data.csv dev-test-target.csv
+  INPUT_FILES: dev-train-data-sm.csv dev-train-target-sm.csv dev-test-data.csv dev-test-target.csv
   OUTPUT_FILES: output01.txt
 
 jobs:

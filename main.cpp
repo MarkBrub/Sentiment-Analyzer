@@ -1,28 +1,34 @@
-#define CATCH_CONFIG_RUNNER
-#include "catch.hpp"
+//#define CATCH_CONFIG_RUNNER
+//#include "catch.hpp"
 
 #include <iostream>
 #include "strand.hpp"
 #include "analyzer.hpp"
 
 int runTests() {
-    return Catch::Session().run();
+    //return Catch::Session().run();
+    return 0;
 }
 
 int main(int argc, char **argv) {
-    if(argc < 2) return runTests();
+    //if(argc < 2) return runTests();
 
     std::ios_base::sync_with_stdio(false);
-    std::ifstream data(argv[1]);
-    std::ifstream target(argv[2]);
+    std::ifstream trainData(argv[3]);
+    std::ifstream trainTarget(argv[4]);
+    std::ifstream testData(argv[5]);
+    std::ifstream testTarget(argv[6]);
     std::ofstream output("output01.txt");
     analyzer anal;
 
-    anal.inputTweets(data, target);
-    anal.output();
+    anal.inputTweets(trainData, trainTarget);
+    anal.classifyTweets(testData, testTarget);
+    anal.output(50);
 
-    data.close();
-    target.close();
+    trainData.close();
+    trainTarget.close();
+    testData.close();
+    testTarget.close();
     output.close();
 
     return 0;

@@ -9,6 +9,7 @@ analyzer::~analyzer() {
 void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     char* dataLine = new char[2048];
     char* targetLine = new char[32];
+    int x = 0;
 
     //remove first line
     dataFile.getline(dataLine, 2048);
@@ -41,6 +42,8 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
                 if(word.size() > 2) freqency[word] += sentiment;
             }
         }
+
+        std::cout << x++ << std::endl;
         tweets.push_back(t);
     }
 

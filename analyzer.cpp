@@ -32,6 +32,8 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         //get the tweet sentiment as positive or negative
         int sentiment = (target[0] == '0') ? -1 : 1;
 
+        std::cout << "Hit" << std::endl;
+
         //Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
         Tweet* t = new Tweet();
 

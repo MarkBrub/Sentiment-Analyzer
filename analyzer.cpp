@@ -9,7 +9,6 @@ analyzer::~analyzer() {
 void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     char* dataLine = new char[2048];
     char* targetLine = new char[32];
-    int x = 0;
 
     //remove first line
     dataFile.getline(dataLine, 2048);
@@ -27,15 +26,10 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         data.removeFirstSegment();
         data.removeFirstSegment();
 
-        std::cout << "Hit" << std::endl;
-
         //get the tweet sentiment as positive or negative
         int sentiment = (target[0] == '0') ? -1 : 1;
 
-        std::cout << "Hit" << std::endl;
-
-        //Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
-        Tweet* t = new Tweet();
+        Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
 
         while(data.size() > 0) {
             word = data.popLastSegment(' ');
@@ -48,7 +42,6 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
             }
         }
 
-        std::cout << x++ << std::endl;
         tweets.push_back(t);
     }
 

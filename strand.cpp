@@ -193,12 +193,8 @@ strand& strand::erase(int pos, int len) {
     return *this;
 }
 char strand::pop_back() {
-    char temp = back();
-
-    erase(m_size, 1);
-    m_size -= 1;
-
-    return temp;
+    m_size--;
+    return m_data[m_size + 1];
 }
 
 //operations

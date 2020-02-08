@@ -7,6 +7,7 @@
 #include "tweet.hpp"
 
 struct analyzer {
+    static std::vector<strand> stopWords;
     std::unordered_map<strand, int> positive;
     std::unordered_map<strand, int> negative;
     std::vector<Tweet*> tweets;

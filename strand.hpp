@@ -6,6 +6,9 @@
 #include <cstdlib>
 
 class strand {
+    //The goal of this class is to implement many of the <string> functions so that the
+    //two classes can be interchanged
+    //There are some additional functions to aid in this project
     char* m_data = nullptr;
     int m_size = 0;
     int m_capacity = 0;
@@ -55,7 +58,7 @@ public:
     int find(const char* str, int pos = 0);
     strand substr(int pos, int len);
 
-    //other operator overloads
+    //other standard functions and operator overloads
     friend strand operator+(strand lhs, const strand& rhs);
     friend strand operator+(strand lhs, const char* rhs);
     friend bool operator==(const strand& lhs, const strand& rhs);
@@ -64,16 +67,16 @@ public:
     friend bool operator!=(const strand& lhs, const char* rhs);
     friend std::ostream& operator<<(std::ostream& out, const strand& str);
     friend std::istream& operator>>(std::istream& in, strand& str);
+    long long toLongLong();
+
+    //custom functions
     void outputValues() const;
-    void updateSize();
     strand popFirstSegment(char delimiter = ',');
     strand popLastSegment(char delimiter = ',');
     void removeFirstSegment(char delimiter = ',');
     void toLower();
-    void removePuncuation();
+    void removePunctuation();
     bool isURL();
-    long long strtol();
-    char* strtok(const char* delimiters);
 };
 
 //For use in std::unordered_map

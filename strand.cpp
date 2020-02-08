@@ -1,6 +1,6 @@
 #include "strand.hpp"
 
-//constructor
+//constructors ------------------------------------------------------
 strand::strand() {
     m_data = nullptr;
 }
@@ -34,7 +34,7 @@ strand::~strand() {
     delete[] m_data;
 }
 
-//assignment operators
+//assignment operators ----------------------------------------------
 strand& strand::operator=(const strand& str) {
     if(*this == str) return *this;
 
@@ -69,10 +69,12 @@ strand& strand::operator=(const char c) {
     return *this;
 }
 
-//capacity
+//capacity ----------------------------------------------------------
+//returns the local size
 int strand::size() const {
     return m_size;
 }
+//creates a new strand of the desired capacity
 void strand::resize(int len) {
     if(len < 0) {
         throw std::invalid_argument("invalid capacity");
@@ -92,17 +94,21 @@ void strand::resize(int len) {
     m_data = temp;
     m_capacity = len;
 }
+//return the local capacity
 int strand::capacity() const {
     return m_capacity;
 }
+//sets all chars in the allocated memory to 0
 void strand::clear() {
-    memset(m_data, 0, m_size);
+    memset(m_data, 0, m_capacity);
 }
+//returns true if the size is 0
 bool strand::empty() const {
     return !m_size;
 }
 
-//element access
+//element access -----------------------------------------------------
+//gives access to the char at the specified location
 char& strand::operator[](int x) {
 
     if(x >= m_size) {
@@ -121,7 +127,8 @@ const char& strand::operator[](int x) const {
     return m_data[x];
 }
 
-//modifiers
+//modifiers ----------------------------------------------------------
+//adds a strand to the end of this one
 strand& strand::operator+=(const strand& str) {
     //I feel like this is a cop out, either way it is slower
     //*this = *this + str;
@@ -146,18 +153,21 @@ strand& strand::operator+=(const char* str) {
 
     return *this;
 }
+//same as +=
 strand& strand::append(const strand& str) {
     return *this += str;
 }
 strand& strand::append(char* str) {
     return *this += str;
 }
+//adds a single char to the end of the strand
 void strand::push_back(char c) {
     if(m_capacity < m_size + 1) resize(m_size + 1);
     m_data[m_size] = c;
     m_size++;
 }
-strand& strand::insert(int pos, const strand& str) {
+//adds a sub strand to the desired location in the strand
+strand& strand::insert(int pos, const strand&str) {
     if(pos < 0 || pos > m_size) throw std::out_of_range("invalid position for insert");
     if(m_capacity < m_size + str.size()) {
         resize(m_size + str.size());
@@ -185,19 +195,21 @@ strand& strand::insert(int pos, const char* str) {
     
     return *this;
 }
+//removes desired length at specified position
 strand& strand::erase(int pos, int len) {
     memmove(m_data + pos, m_data + pos + len, m_size - len);
     m_size -= len;
-    memset(m_data + m_size, 0, len);
-    
+
     return *this;
 }
+//removes and returns the last char
 char strand::pop_back() {
     m_size--;
     return m_data[m_size + 1];
 }
 
-//operations
+//operations ---------------------------------------------------------
+//returns a version of the c-string with a null terminator at the end
 char* strand::c_str() const {
     //return a c-string that is not stored in the class
     char* temp = new char[m_size + 1];
@@ -206,9 +218,11 @@ char* strand::c_str() const {
 
     return temp;
 }
+//returns address of the data
 char* strand::data() const {
     return m_data;
 }
+//returns the position of specified sub strand, starting position can be specified
 int strand::find(const strand& str, int pos) {
     if(pos < 0 || pos > m_size) throw std::out_of_range("invalid position for find");
     
@@ -241,6 +255,7 @@ int strand::find(const char* str, int pos) {
 
     return -1;
 }
+//returns sub strand of length at position
 strand strand::substr(int pos, int len) {
     if(pos < 0 || pos > m_size) throw std::out_of_range("invalid position for substr");
     if(len < 0 || len > m_size - pos) throw std::out_of_range("invalid position for substr");
@@ -251,7 +266,8 @@ strand strand::substr(int pos, int len) {
     return temp;
 }
 
-//other function and operator overloads
+//other standard functions and operator overloads --------------------
+//returns a new strand that is a combination of the two passed in
 strand operator+(strand lhs, const strand& rhs) {
     lhs += rhs;
 
@@ -262,16 +278,29 @@ strand operator+(strand lhs, const char* rhs) {
 
     return lhs;
 }
+//compares the data in the strands but not the capacity
 bool operator==(const strand& lhs, const strand& rhs) {
     if(lhs.empty() || rhs.empty()) return lhs.empty() && rhs.empty();
     if(lhs.m_data == nullptr || rhs.m_data == nullptr) return false;
-    return *lhs.data() == *rhs.data(); 
+    if(lhs.m_size != rhs.m_size) return false;
+
+    for(int x = 0; x < lhs.m_size; x++) {
+        if(lhs[x] != rhs[x]) return false;
+    }
+    return true;
 }
 bool operator==(const strand& lhs, const char* rhs) {
-    if(std::strlen(rhs) == 0) return lhs.empty();
+    int len = std::strlen(rhs);
+    if(len == 0) return lhs.empty();
     if(lhs.m_data == nullptr) return false;
-    return *lhs.m_data == *rhs;
+    if(lhs.m_size != len) return false;
+
+    for(int x = 0; x < len; x++) {
+        if(lhs[x] != rhs[x]) return false;
+    }
+    return true;
 }
+//returns !==
 bool operator!=(const strand& lhs, const strand& rhs) {
     if(lhs.m_data == nullptr) return false;
     return !(lhs == rhs);
@@ -280,6 +309,7 @@ bool operator!=(const strand& lhs, const char* rhs) {
     if(lhs.m_data == nullptr) return false;
     return !(lhs == rhs);
 }
+//for reading in from a file stream
 std::ostream& operator<<(std::ostream& out, const strand& str) {
     //makes output faster but no longer buffers with c output functions
     std::ios_base::sync_with_stdio(false);
@@ -290,6 +320,7 @@ std::ostream& operator<<(std::ostream& out, const strand& str) {
 
     return out;
 }
+//for outputting to a file stream
 std::istream& operator>>(std::istream& in, strand& str) {
     char* buffer = new char[1024];
     in.getline(buffer, 1024);
@@ -302,6 +333,17 @@ std::istream& operator>>(std::istream& in, strand& str) {
 
     return in;
 }
+//converts stored data to numerical value, undefined behavior if data in not a number
+long long strand::toLongLong() {
+    char* c = c_str();
+    long long temp = std::strtoll(c, nullptr, 10);
+    delete[] c;
+
+    return temp;
+}
+
+//custom functions ---------------------------------------------------
+//outputs the size, capacity and the ASCII value of all chars in capacity
 void strand::outputValues() const {
     //makes output faster but no longer buffers with c output functions
     std::ios_base::sync_with_stdio(false);
@@ -312,14 +354,7 @@ void strand::outputValues() const {
         std::cout << (int)m_data[x] << " ";
     }
 }
-void strand::updateSize() {
-    for(int x = m_capacity; x >= 0; x--) {
-        if(m_data[x] > 63 && m_data[x] < 123) {
-            m_size = x - 1;
-            return;
-        }
-    }
-}
+//removes and returns up to the delimiter
 strand strand::popFirstSegment(char delimiter) {
     if(m_size == 0){
         strand temp("~");
@@ -353,6 +388,7 @@ strand strand::popFirstSegment(char delimiter) {
 
     return temp;
 }
+//returns and removes from the end to the next delimiter
 strand strand::popLastSegment(char delimiter) {
     for(int x = m_size - 1; x >= 0; x--) {
         if(m_data[x] == delimiter) {
@@ -389,6 +425,7 @@ strand strand::popLastSegment(char delimiter) {
         return temp;
     } else throw std::logic_error("String empty");
 }
+//removes up to the delimiter
 void strand::removeFirstSegment(char delimiter) {
     for(int x = 0; x < m_size; x++) {
         if(m_data[x] == delimiter) {
@@ -401,6 +438,7 @@ void strand::removeFirstSegment(char delimiter) {
         }
     }
 }
+//converts all letters to their lowercase version
 void strand::toLower() {
     for(int x = 0; x < m_size; x++) {
         if(m_data[x] > 64 && m_data[x] < 91) {
@@ -408,23 +446,15 @@ void strand::toLower() {
         }
     }
 }
-void strand::removePuncuation() {
+//removes an array of non letter characters
+void strand::removePunctuation() {
     while(m_data[m_size - 1] < 64 || m_data[m_size - 1] > 122) m_size--;
 }
+//returns if the stored value starts with www or http
 bool strand::isURL() {
     if(m_size < 3) return false;
     if(m_data[0] == 'w' && m_data[1] == 'w' && m_data[2] == 'w') return true;
     if(m_size == 3) return false;
     if(m_data[0] == 'h' && m_data[1] == 't' && m_data[2] == 't' && m_data[3] == 'p') return true;
     return false;
-}
-long long strand::strtol() {
-    char* c = c_str();
-    long long temp = std::strtoll(c, nullptr, 10);
-    delete[] c;
-
-    return temp;
-}
-char* strand::strtok(const char* delimiters) {
-    return std::strtok(m_data, delimiters);
 }

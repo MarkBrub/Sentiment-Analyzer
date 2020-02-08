@@ -25,7 +25,7 @@ void bayes::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
             //make sure the first char is a letter
             if(word[0] > 64 && word[0] < 123) {
                 word.toLower();
-                word.removePuncuation();
+                word.removePunctuation();
                 //t->m_words.push_back(word);
                 if(word.isURL()) continue;
                 if(word.size() > 2) positive[word] += sentiment;
@@ -53,7 +53,7 @@ void bayes::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
         data.removeFirstSegment();
 
         int actualSentiment = (target[0] == '0') ? -1 : 1;
-        Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
+        Tweet* t = new Tweet(data.popFirstSegment().toLongLong(), data.popFirstSegment());
         strand word(64);
 
         while(!data.empty()) {
@@ -61,7 +61,7 @@ void bayes::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
             //make sure the first char is a letter
             if(word[0] > 64 && word[0] < 123) {
                 word.toLower();
-                word.removePuncuation();
+                word.removePunctuation();
                 t->m_words.push_back(word);
             }
         }

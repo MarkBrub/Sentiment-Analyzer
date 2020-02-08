@@ -39,14 +39,14 @@ TEST_CASE("String class", "[string]"){
     SECTION("+= operators"){
         strand str;
         str = "a test ";
-        REQUIRE(str += "String" == s[1]);
+        REQUIRE((str += "String") == s[1]);
         str = strand("test");
         strand temp("String");
-        REQUIRE(str += temp == s[0]);
+        REQUIRE((str += temp) == s[0]);
         str = "";
-        REQUIRE(str += "" == s[6]);
+        REQUIRE((str += "") == s[6]);
         str = "";
-        REQUIRE(str += "\n" == s[5]);
+        REQUIRE((str += "\n") == s[5]);
     }
     SECTION("Addition operator"){
         REQUIRE(strand("testStringtestString") == s[0]+s[9]);

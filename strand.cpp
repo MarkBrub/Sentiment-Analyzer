@@ -262,6 +262,7 @@ strand strand::substr(int pos, int len) {
 
     strand temp(len);
     memcpy(temp.m_data, m_data + pos, len);
+    temp.m_size = len;
 
     return temp;
 }

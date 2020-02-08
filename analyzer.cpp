@@ -87,9 +87,16 @@ void analyzer::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile
     std::cout << "Undetermined tweets: " << unclassified << std::endl;
 }
 
+bool analyzer::isStopWord(strand& str) {
+    for(int x = 0; x < stopWords.size(); x++) {
+        if(str == stopWords[x]) return true;
+    }
+    return false;
+}
+
 int analyzer::calcSentiment(Tweet* t) {
     for(int x = t->size() - 1; x >= 0; x--) {
-        //if(isStopWord(((*t)[x]))) continue;
+        if(isStopWord(((*t)[x]))) continue;
         if((*t)[x].size() < 3) continue;
         if((*t)[x].isURL()) continue;
 

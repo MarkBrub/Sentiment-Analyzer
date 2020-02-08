@@ -17,6 +17,6 @@ struct analyzer {
     void inputTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     void classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     void output(std::ofstream& out);
-    bool isStopWord(strand& str);
+    static bool isStopWord(strand& str);
     int calcSentiment(Tweet* t);
 };

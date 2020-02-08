@@ -1,7 +1,9 @@
 #include "analyzer.hpp"
 
+//A vector of stop words
 std::vector<strand> analyzer::stopWords = {"ourselves", "hers", "between", "yourself", "but", "again", "there", "about", "once", "during", "out", "very", "having", "with", "they", "own", "an", "be", "some", "for", "do", "its", "yours", "such", "into", "of", "most", "itself", "other", "off", "is", "s", "am", "or", "who", "as", "from", "him", "each", "the", "themselves", "until", "below", "are", "we", "these", "your", "his", "through", "don", "nor", "me", "were", "her", "more", "himself", "this", "down", "should", "our", "their", "while", "above", "both", "up", "to", "ours", "had", "she", "all", "no", "when", "at", "any", "before", "them", "same", "and", "been", "have", "in", "will", "on", "does", "yourselves", "then", "that", "because", "what", "over", "why", "so", "can", "did", "not", "now", "under", "he", "you", "herself", "has", "just", "where", "too", "only", "myself", "which", "those", "i", "after", "few", "whom", "t", "being", "if", "theirs", "my", "against", "a", "by", "doing", "it", "how", "further", "was", "here", "than"};
 
+//stores frequency of words in training set
 void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     strand data(1024);
     strand target(32);
@@ -40,6 +42,7 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     std::cout << "Total tweets: " << numTweets << std::endl;
 }
 
+//uses the stored data to read and classify sentiment of tweets
 void analyzer::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     strand data(1024);
     strand target(32);
@@ -87,6 +90,7 @@ void analyzer::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile
     std::cout << "Undetermined tweets: " << unclassified << std::endl;
 }
 
+//returns true if the strand is a stop word
 bool analyzer::isStopWord(strand& str) {
     for(int x = 0; x < stopWords.size(); x++) {
         if(str == stopWords[x]) return true;
@@ -94,6 +98,7 @@ bool analyzer::isStopWord(strand& str) {
     return false;
 }
 
+//uses the values of the individual words to get a total sentiment
 int analyzer::calcSentiment(Tweet* t) {
     for(int x = t->size() - 1; x >= 0; x--) {
         if(isStopWord(((*t)[x]))) continue;
@@ -117,6 +122,7 @@ int analyzer::calcSentiment(Tweet* t) {
     return t->m_sentiment;
 }
 
+//outputs the accuracy and missed tweets to a file
 void analyzer::output(std::ofstream& out) {
     out << std::fixed << std::setprecision(3) << accuracy << std::endl;
 

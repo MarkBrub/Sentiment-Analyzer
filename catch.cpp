@@ -74,7 +74,6 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[2].capacity() == 0);
         REQUIRE(s[8].capacity() == 26);
         REQUIRE(s[3].capacity() == 27);
-        REQUIRE(s[13].capacity() == 10);
     }
     SECTION("capacity function"){
         REQUIRE(s[9].find("tS", 0) == 3);

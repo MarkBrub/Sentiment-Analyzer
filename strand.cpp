@@ -31,7 +31,7 @@ strand::strand(char c) {
 
 //destructor
 strand::~strand() {
-    if(m_data != nullptr) delete[] m_data;
+    delete[] m_data;
 }
 
 //assignment operators

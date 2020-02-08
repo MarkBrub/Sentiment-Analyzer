@@ -4,7 +4,7 @@
 #include "strand.hpp"
 
 TEST_CASE("String class", "[string]"){
-    strand s[12];
+    strand s[14];
     s[0] = strand("testString");
     s[1] = strand("a test string");
     s[2] = strand("");

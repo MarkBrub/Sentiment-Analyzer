@@ -17,6 +17,8 @@ TEST_CASE("String class", "[string]"){
     s[9] = strand("testString");
     s[10] = strand('x');
     s[11] = strand('\0');
+    s[12] = strand("100");
+    s[13] = strand(10);
 
     SECTION("Equality operators"){
         REQUIRE(s[0] == strand("testString"));
@@ -60,11 +62,24 @@ TEST_CASE("String class", "[string]"){
         REQUIRE(s[10][0] == 'x');
         REQUIRE(s[11][0] == '\0');
     }
-    SECTION("getLength function"){
+    SECTION("size function"){
         REQUIRE(s[9].size() == 10);
         REQUIRE(s[2].size() == 0);
         REQUIRE(s[8].size() == 26);
         REQUIRE(s[3].size() == 27);
+        REQUIRE(s[13].size() == 0);
+    }
+    SECTION("capacity function"){
+        REQUIRE(s[9].capacity() == 10);
+        REQUIRE(s[2].capacity() == 0);
+        REQUIRE(s[8].capacity() == 26);
+        REQUIRE(s[3].capacity() == 27);
+        REQUIRE(s[13].capacity() == 10);
+    }
+    SECTION("capacity function"){
+        REQUIRE(s[9].find("tS", 0) == 3);
+        REQUIRE(s[9].find("ts", 2) == 3);
+        REQUIRE(s[2].find(s[3], 4) == -1)
     }
     SECTION("Substring function"){
         REQUIRE(s[0].substr(0, 5) == "testS");

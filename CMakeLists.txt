@@ -10,9 +10,10 @@ set (input05 "dev-train-data-sm.csv")
 set (input06 "dev-train-target-sm.csv")
 
 # Copy data files to build dir
-foreach(file IN LISTS input05 input06 input03 input04)
+foreach(file IN LISTS input01 input02 input03 input04 input05 input06)
     configure_file(${file} ${file} COPYONLY)
 endforeach()
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(${EXE_NAME} main.cpp strand.cpp analyzer.cpp tweet.cpp catch.hpp catch.cpp)
+add_executable(${EXE_NAME} main.cpp strand.cpp analyzer.cpp tweet.cpp)
+#add_executable(${EXE_NAME} main.cpp strand.cpp analyzer.cpp tweet.cpp catch.hpp catch.cpp)

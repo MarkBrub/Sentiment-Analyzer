@@ -39,7 +39,7 @@ TEST_CASE("String class", "[string]"){
     SECTION("+= operators"){
         strand str;
         str = "a test ";
-        REQUIRE((str += "String") == s[1]);
+        REQUIRE((str += "string") == s[1]);
         str = strand("test");
         strand temp("String");
         REQUIRE((str += temp) == s[0]);

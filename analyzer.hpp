@@ -6,13 +6,17 @@
 #include "strand.hpp"
 #include "tweet.hpp"
 
-class analyzer {
-    std::unordered_map<strand, int> freqency;
+struct analyzer {
+    std::unordered_map<strand, int> frequency;
     std::vector<Tweet*> tweets;
-public:
+    static const std::vector<strand> stopWords;
+    int count = 0;
+
     ~analyzer();
 
     void inputTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     void classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     void output(int threshold = 50);
+    static bool isStopWord(strand& str);
+    int calcSentiment(Tweet* t);
 };

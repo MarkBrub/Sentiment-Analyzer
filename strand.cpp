@@ -7,17 +7,20 @@ strand::strand() {
 strand::strand(int len) {
     if(len < 0) throw std::invalid_argument("strand must be a positive length");
     m_data = new char[len];
+    m_origin = m_data;
     m_capacity = len;
 }
 strand::strand(const strand& str) {
     m_data = new char[str.m_size];
-    
+    m_origin = m_data;
+
     m_size = str.size();
     m_capacity = m_size;
     memcpy(m_data, str.data(), m_size);
 }
 strand::strand(const char* str) {
     m_size = strlen(str);
+    m_origin = m_data;
 
     m_capacity = m_size;
     m_data = new char[m_size];
@@ -27,6 +30,7 @@ strand::strand(char c) {
     m_size = 1;
     m_capacity = 1;
     m_data = new char[1];
+    m_origin = m_data;
     m_data[0] = c;
 }
 
@@ -399,7 +403,7 @@ strand strand::popLastSegment(char delimiter) {
             m_size -= (m_size - x);
 
             //remove any extra white space
-            while(x > 0 && m_data[x - 1] == delimiter) {
+            while(x > 0 && (m_data[x - 1] == delimiter || m_data[x - 1] == ',' || m_data[x - 1] == '.' || m_data[x - 1] == '!')) {
                 m_size--;
                 x--;
             }
@@ -419,8 +423,11 @@ strand strand::popLastSegment(char delimiter) {
 }
 void strand::removeFirstSegment(char delimiter) {
     for(int x = 0; x < m_size; x++) {
-        if(x == m_size || m_data[x] == delimiter) {
+        if(m_data[x] == delimiter) {
             erase(0, x + 1);
+            /*m_data += (x + 1);
+            m_size -= (x + 1);
+            m_capacity -= (x + 1);*/
 
             return;
         }
@@ -432,6 +439,20 @@ void strand::toLower() {
             m_data[x] += 32;
         }
     }
+}
+void strand::removePuncuation() {
+    for(int x = m_size; x >= 0; x--) {
+        if(m_data[x] < 41 || m_data[x] == 63) {
+            m_size--;
+        } else return;
+    }
+}
+bool strand::isURL() {
+    if(m_size < 3) return false;
+    if(m_data[0] == 'w' && m_data[1] == 'w' && m_data[2] == 'w') return true;
+    if(m_size == 3) return false;
+    if(m_data[0] == 'h' && m_data[1] == 't' && m_data[2] == 't' && m_data[2] == 't') return true;
+    return false;
 }
 long long strand::strtol() {
     char* c = c_str();

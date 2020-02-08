@@ -7,6 +7,7 @@
 
 class strand {
     char* m_data = nullptr;
+    char* m_origin = nullptr;
     int m_size = 0;
     int m_capacity = 0;
 public:
@@ -73,6 +74,8 @@ public:
     strand popLastSegment(char delimiter = ',');
     void removeFirstSegment(char delimiter = ',');
     void toLower();
+    void removePuncuation();
+    bool isURL();
     long long strtol();
     char* strtok(const char* delimiters);
 };

@@ -1,6 +1,6 @@
 #include "strand.hpp"
 
-//constructors ------------------------------------------------------
+//constructors -----------------------------------------------------------------------------------
 strand::strand() {
     m_data = nullptr;
 }
@@ -34,7 +34,7 @@ strand::~strand() {
     delete[] m_data;
 }
 
-//assignment operators ----------------------------------------------
+//assignment operators ---------------------------------------------------------------------------
 strand& strand::operator=(const strand& str) {
     if(*this == str) return *this;
 
@@ -69,7 +69,7 @@ strand& strand::operator=(const char c) {
     return *this;
 }
 
-//capacity ----------------------------------------------------------
+//capacity ---------------------------------------------------------------------------------------
 //returns the local size
 int strand::size() const {
     return m_size;
@@ -107,7 +107,7 @@ bool strand::empty() const {
     return !m_size;
 }
 
-//element access -----------------------------------------------------
+//element access ----------------------------------------------------------------------------------
 //gives access to the char at the specified location
 char& strand::operator[](int x) {
 
@@ -127,7 +127,7 @@ const char& strand::operator[](int x) const {
     return m_data[x];
 }
 
-//modifiers ----------------------------------------------------------
+//modifiers ---------------------------------------------------------------------------------------
 //adds a strand to the end of this one
 strand& strand::operator+=(const strand& str) {
     //I feel like this is a cop out, either way it is slower
@@ -208,7 +208,7 @@ char strand::pop_back() {
     return m_data[m_size + 1];
 }
 
-//operations ---------------------------------------------------------
+//operations --------------------------------------------------------------------------------------
 //returns a version of the c-string with a null terminator at the end
 char* strand::c_str() const {
     //return a c-string that is not stored in the class
@@ -267,7 +267,7 @@ strand strand::substr(int pos, int len) {
     return temp;
 }
 
-//other standard functions and operator overloads --------------------
+//other standard functions and operator overloads -------------------------------------------------
 //returns a new strand that is a combination of the two passed in
 strand operator+(strand lhs, const strand& rhs) {
     lhs += rhs;
@@ -343,7 +343,7 @@ long long strand::toLongLong() {
     return temp;
 }
 
-//custom functions ---------------------------------------------------
+//custom functions --------------------------------------------------------------------------------
 //outputs the size, capacity and the ASCII value of all chars in capacity
 void strand::outputValues() const {
     //makes output faster but no longer buffers with c output functions

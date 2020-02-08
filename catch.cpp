@@ -78,7 +78,7 @@ TEST_CASE("String class", "[string]"){
     SECTION("capacity function"){
         REQUIRE(s[9].find("tS", 0) == 3);
         REQUIRE(s[9].find("ts", 2) == -1);
-        REQUIRE(s[2].find(s[3], 2) == -1);
+        REQUIRE(s[9].find(s[3], 2) == -1);
     }
     SECTION("Substring function"){
         REQUIRE(s[0].substr(0, 5) == "testS");

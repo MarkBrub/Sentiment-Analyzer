@@ -7,12 +7,10 @@ strand::strand() {
 strand::strand(int len) {
     if(len < 0) throw std::invalid_argument("strand must be a positive length");
     m_data = new char[len];
-    m_origin = m_data;
     m_capacity = len;
 }
 strand::strand(const strand& str) {
     m_data = new char[str.m_size];
-    m_origin = m_data;
 
     m_size = str.size();
     m_capacity = m_size;
@@ -20,8 +18,6 @@ strand::strand(const strand& str) {
 }
 strand::strand(const char* str) {
     m_size = strlen(str);
-    m_origin = m_data;
-
     m_capacity = m_size;
     m_data = new char[m_size];
     memcpy(m_data, str, m_size);
@@ -30,7 +26,6 @@ strand::strand(char c) {
     m_size = 1;
     m_capacity = 1;
     m_data = new char[1];
-    m_origin = m_data;
     m_data[0] = c;
 }
 
@@ -124,44 +119,6 @@ const char& strand::operator[](int x) const {
     }
 
     return m_data[x];
-}
-char& strand::front() {
-    if(m_size < 1) {
-        std::cout << "strand empty: cannot call front" << std::endl;
-        //why doesnt this work and what should it do
-        //return '\0';
-        return *m_data;
-    }
-
-    return *m_data;
-}
-const char& strand::front() const {
-    if(m_size < 1) {
-        std::cout << "strand empty: cannot call front" << std::endl;
-        //return '\0';
-        return *m_data;
-    }
-
-    return *m_data;
-}
-char& strand::back() {
-        if(m_size < 1) {
-        std::cout << "strand empty: cannot call back" << std::endl;
-        //why doesnt this work and what should it do
-        //return '\0';
-        return *m_data;
-    }
-
-    return m_data[m_size - 1];
-}
-const char& strand::back() const {
-    if(m_size < 1) {
-        std::cout << "strand empty: cannot call back" << std::endl;
-        //return '\0';
-        return *m_data;
-    }
-
-    return m_data[m_size - 1];
 }
 
 //modifiers
@@ -337,8 +294,15 @@ std::ostream& operator<<(std::ostream& out, const strand& str) {
 
     return out;
 }
-std::istream& operator>>(std::istream& in, const strand& str) {
-    in.getline(str.m_data, str.m_capacity);
+std::istream& operator>>(std::istream& in, strand& str) {
+    char* buffer = new char[1024];
+    in.getline(buffer, 1024);
+    int len = strlen(buffer);
+
+    memcpy(str.m_data, buffer, len);
+    str.m_size = len;
+
+    delete[] buffer;
 
     return in;
 }
@@ -350,6 +314,14 @@ void strand::outputValues() const {
 
     for(int x = 0; x < m_capacity; x++) {
         std::cout << (int)m_data[x] << " ";
+    }
+}
+void strand::updateSize() {
+    for(int x = m_capacity; x >= 0; x--) {
+        if(m_data[x] > 63 && m_data[x] < 123) {
+            m_size = x - 1;
+            return;
+        }
     }
 }
 strand strand::popFirstSegment(char delimiter) {

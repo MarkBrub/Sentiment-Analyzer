@@ -7,7 +7,6 @@
 
 class strand {
     char* m_data = nullptr;
-    char* m_origin = nullptr;
     int m_size = 0;
     int m_capacity = 0;
 public:
@@ -37,10 +36,6 @@ public:
     //element access
     char& operator[](int x);
     const char& operator[](int x) const;
-    char& front();
-    const char& front() const;
-    char& back();
-    const char& back() const;
 
     //modifiers
     strand& operator+=(const strand& str);
@@ -68,8 +63,9 @@ public:
     friend bool operator!=(const strand& lhs, const strand& rhs);
     friend bool operator!=(const strand& lhs, const char* rhs);
     friend std::ostream& operator<<(std::ostream& out, const strand& str);
-    friend std::istream& operator>>(std::istream& in, const strand& str);
+    friend std::istream& operator>>(std::istream& in, strand& str);
     void outputValues() const;
+    void updateSize();
     strand popFirstSegment(char delimiter = ',');
     strand popLastSegment(char delimiter = ',');
     void removeFirstSegment(char delimiter = ',');

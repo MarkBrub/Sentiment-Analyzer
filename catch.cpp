@@ -4,7 +4,7 @@
 #include "strand.hpp"
 
 TEST_CASE("String class", "[string]"){
-    strand s[10];
+    strand s[12];
     s[0] = strand("testString");
     s[1] = strand("a test string");
     s[2] = strand("");
@@ -15,6 +15,8 @@ TEST_CASE("String class", "[string]"){
     s[7] = strand("  split  split  split  ");
     s[8] = strand("                          ");
     s[9] = strand("testString");
+    s[10] = strand('x');
+    s[11] = strand('\0')
 
     SECTION("Equality operators"){
         REQUIRE(s[0] == strand("testString"));
@@ -34,22 +36,29 @@ TEST_CASE("String class", "[string]"){
         str = strand("\n");
         REQUIRE(str == s[5]);
     }
+    SECTION("+= operators"){
+        strand str;
+        str = "a test ";
+        REQUIRE(str += "String" == s[1]);
+        str = strand("test");
+        strand temp("String");
+        REQUIRE(str += temp == s[0]);
+        str = "";
+        REQUIRE(str += "" == s[6]);
+        str = "";
+        REQUIRE(str += "\n" == s[5]);
+    }
     SECTION("Addition operator"){
         REQUIRE(strand("testStringtestString") == s[0]+s[9]);
         REQUIRE(s[6] + s[6] == "");
         REQUIRE(s[5] + s[6] == strand("\n"));
         REQUIRE(s[0] + s[1] + s[2] == "testStringa test string");
     }
-    /*SECTION("Greater than operator"){
-        REQUIRE(s[0] > s[1]);
-        REQUIRE(s[4] > s[3]);
-        REQUIRE(s[9] > s[6]);
-        REQUIRE(s[7] > s[6]);
-    }*/
     SECTION("[] Operator"){
         REQUIRE(s[0][1] == 'e');
         REQUIRE(s[4][4] == ' ');
-        //REQUIRE(s[6][0] == 0);
+        REQUIRE(s[10][0] == 'x');
+        REQUIRE(s[11][0] == '\0');
     }
     SECTION("getLength function"){
         REQUIRE(s[9].size() == 10);

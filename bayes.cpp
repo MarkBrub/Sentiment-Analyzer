@@ -1,6 +1,6 @@
-#include "analyzer.hpp"
+#include "bayes.hpp"
 
-void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
+void bayes::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     strand data(1024);
     strand target(32);
 
@@ -34,7 +34,7 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     }
 }
 
-void analyzer::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
+void bayes::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     strand data(1024);
     strand target(32);
     double numTweets = 0;
@@ -81,7 +81,7 @@ void analyzer::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile
     std::cout << "Undetermined tweets: " << unclassified << std::endl;
 }
 
-int analyzer::calcSentiment(Tweet* t) {
+int bayes::calcSentiment(Tweet* t) {
     for(int x = t->size() - 1; x >= 0; x--) {
         //if(isStopWord(((*t)[x]))) continue;
         if((*t)[x].size() < 3) continue;
@@ -104,7 +104,7 @@ int analyzer::calcSentiment(Tweet* t) {
     return t->m_sentiment;
 }
 
-void analyzer::output(std::ofstream& out) {
+void bayes::output(std::ofstream& out) {
     out << std::fixed << std::setprecision(3) << accuracy << std::endl;
 
     for(int x = 0; x < tweets.size(); x++) {

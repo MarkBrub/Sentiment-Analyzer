@@ -3,12 +3,14 @@
 void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     strand data(1024);
     strand target(32);
+    int numTweets = 0;
 
     dataFile >> data;
     targetFile >> target;
 
     while(dataFile >> data) {
         targetFile >> target;
+        numTweets++;
 
         //remove the rowNum column
         target.removeFirstSegment();
@@ -18,7 +20,7 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
 
         //get the tweet sentiment as positive or negative
         int sentiment = (target[0] == '0') ? -1 : 1;
-        strand word(64);
+        strand word(128);
 
         while(!data.empty()) {
             word = data.popLastSegment(' ');
@@ -32,6 +34,8 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
             }
         }
     }
+
+    std::cout << "Total tweets: " << numTweets << std::endl;
 }
 
 void analyzer::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
@@ -54,7 +58,7 @@ void analyzer::classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile
 
         int actualSentiment = (target[0] == '0') ? -1 : 1;
         Tweet* t = new Tweet(data.popFirstSegment().strtol(), data.popFirstSegment());
-        strand word(64);
+        strand word(128);
 
         while(!data.empty()) {
             word = data.popLastSegment(' ');

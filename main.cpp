@@ -17,8 +17,8 @@ int main(int argc, char **argv) {
     if(argc < 2) return runTests();
 
     std::ios_base::sync_with_stdio(false);
-    std::ifstream trainData(argv[5]);
-    std::ifstream trainTarget(argv[6]);
+    std::ifstream trainData(argv[1]);
+    std::ifstream trainTarget(argv[2]);
     std::ifstream testData(argv[3]);
     std::ifstream testTarget(argv[4]);
     std::ofstream output("output01.txt");

@@ -10,7 +10,7 @@ set (input05 "dev-train-data-sm.csv")
 set (input06 "dev-train-target-sm.csv")
 
 # Copy data files to build dir
-foreach(file IN LISTS input01 input02 input03 input04 input05 input06)
+foreach(file IN LISTS input05 input06 input03 input04)
     configure_file(${file} ${file} COPYONLY)
 endforeach()
 

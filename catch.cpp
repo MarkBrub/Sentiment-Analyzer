@@ -16,7 +16,7 @@ TEST_CASE("String class", "[string]"){
     s[8] = strand("                          ");
     s[9] = strand("testString");
     s[10] = strand('x');
-    s[11] = strand('\0')
+    s[11] = strand('\0');
 
     SECTION("Equality operators"){
         REQUIRE(s[0] == strand("testString"));

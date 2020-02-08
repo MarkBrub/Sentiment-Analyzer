@@ -104,6 +104,7 @@ int bayes::calcSentiment(Tweet* t) {
     return t->m_sentiment;
 }
 
+/*
 void bayes::output(std::ofstream& out) {
     out << std::fixed << std::setprecision(3) << accuracy << std::endl;
 
@@ -112,4 +113,4 @@ void bayes::output(std::ofstream& out) {
             out << tweets[x]->m_id << std::endl;
         }
     }
-}
+}*/

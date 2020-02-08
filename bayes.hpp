@@ -15,6 +15,6 @@ struct bayes {
 
     void inputTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     void classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile);
-    static void output(std::ofstream& out);
+    //void output(std::ofstream& out);
     int calcSentiment(Tweet* t);
 };

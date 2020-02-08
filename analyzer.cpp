@@ -58,7 +58,7 @@ void analyzer::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
                 word.toLower();
                 word.removePuncuation();
                 //t->m_words.push_back(word);
-                //if(word.isURL()) continue;
+                if(word.isURL()) continue;
                 if(word.size() > 2) frequency[word] += sentiment;
             }
         }
@@ -134,7 +134,7 @@ int analyzer::calcSentiment(Tweet* t) {
         if((*t)[x].size() < 3) continue;
 
         int freq = frequency[(*t)[x]];
-        if(abs(freq) < 30) continue;
+        if(abs(freq) < 10) continue;
         if(freq > 0) freq = 1;
         if(freq < 0) freq = -1;
         t->m_sentiment += freq;

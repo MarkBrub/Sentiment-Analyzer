@@ -441,17 +441,13 @@ void strand::toLower() {
     }
 }
 void strand::removePuncuation() {
-    for(int x = m_size; x >= 0; x--) {
-        if(m_data[x] < 41 || m_data[x] == 63) {
-            m_size--;
-        } else return;
-    }
+    while(m_data[m_size - 1] < 64 || m_data[m_size - 1] > 122) m_size--;
 }
 bool strand::isURL() {
     if(m_size < 3) return false;
     if(m_data[0] == 'w' && m_data[1] == 'w' && m_data[2] == 'w') return true;
     if(m_size == 3) return false;
-    if(m_data[0] == 'h' && m_data[1] == 't' && m_data[2] == 't' && m_data[2] == 't') return true;
+    if(m_data[0] == 'h' && m_data[1] == 't' && m_data[2] == 't' && m_data[3] == 'p') return true;
     return false;
 }
 long long strand::strtol() {

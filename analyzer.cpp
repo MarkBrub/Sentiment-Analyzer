@@ -148,4 +148,5 @@ int analyzer::calcSentiment(Tweet* t) {
     }
 
     return t->m_sentiment;
+    //uhhhhhhhg
 }

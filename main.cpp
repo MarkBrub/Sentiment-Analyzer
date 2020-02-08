@@ -1,5 +1,5 @@
-#define CATCH_CONFIG_RUNNER
-#include "catch.hpp"
+//#define CATCH_CONFIG_RUNNER
+//#include "catch.hpp"
 
 #include <iostream>
 #include <chrono>
@@ -7,7 +7,7 @@
 //#include "bayes.hpp"
 
 int runTests() {
-    return Catch::Session().run();
+    //return Catch::Session().run();
     return 0;
 }
 
@@ -17,8 +17,8 @@ int main(int argc, char **argv) {
     if(argc < 2) return runTests();
 
     std::ios_base::sync_with_stdio(false);
-    std::ifstream trainData(argv[1]);
-    std::ifstream trainTarget(argv[2]);
+    std::ifstream trainData(argv[5]);
+    std::ifstream trainTarget(argv[6]);
     std::ifstream testData(argv[3]);
     std::ifstream testTarget(argv[4]);
     std::ofstream out("output01.txt");
@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 
     anal.inputTweets(trainData, trainTarget);
     anal.classifyTweets(testData, testTarget);
-    anal.output(out);
+    //anal.output(out);
 
     trainData.close();
     trainTarget.close();

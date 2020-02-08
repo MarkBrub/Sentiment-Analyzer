@@ -1,5 +1,5 @@
-//#define CATCH_CONFIG_RUNNER
-//#include "catch.hpp"
+#define CATCH_CONFIG_RUNNER
+#include "catch.hpp"
 
 #include <iostream>
 #include <chrono>
@@ -7,7 +7,7 @@
 //#include "bayes.hpp"
 
 int runTests() {
-    //return Catch::Session().run();
+    return Catch::Session().run();
     return 0;
 }
 

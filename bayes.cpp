@@ -34,19 +34,18 @@ void Bayes::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
                 word.toLower();
                 word.removePunctuation();
                 if(word.isURL()) continue;
-                if(word.size() > 2) {
-                    //push the words into the appropriate unordered map
-                    if(sentiment == 1) {
-                        positive[word]++;
-                        positiveWords++;
-                    } else if(sentiment == -1) {
-                        negative[word]++;
-                        negativeWords++;
-                    }
 
-                    //if not already in the map it add the word
-                    unique[word];
+                //push the words into the appropriate unordered map
+                if(sentiment == 1) {
+                    positive[word]++;
+                    positiveWords++;
+                } else if(sentiment == -1) {
+                    negative[word]++;
+                    negativeWords++;
                 }
+
+                //if not already in the map it add the word
+                unique[word];
             }
         }
     }
@@ -124,14 +123,10 @@ double Bayes::naiveBayes(Tweet* t, std::unordered_map<strand, int>& frequency, d
     for(int x = t->size() - 1; x >= 0; x--) {
         strand* word = &(*t)[x]; //This line is cancer but if I put the tweets on the stack the program slows way down
         if(isStopWord(word)) continue;
-        if(word->size() < 3) continue;
         if(word->isURL()) continue;
 
         //Naive Bayes algorithm
         double freq = frequency[*word] + 1;
-        if(freq == 0) {
-            freq = 1.0 / unique.size();
-        }
         t->m_sentiment *= (freq / ((unique.size() + total)));
     }
 

@@ -11,7 +11,7 @@ int runTests() {
 }
 
 int main(int argc, char **argv) {
-    auto start = std::chrono::steady_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
 
     if(argc < 2) return runTests();
 
@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     testTarget.close();
     out.close();
 
-    auto end = std::chrono::steady_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
 
     std::cout << "Run in milliseconds : " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " ms" << std::endl;
 

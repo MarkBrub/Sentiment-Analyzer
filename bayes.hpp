@@ -6,15 +6,19 @@
 #include "strand.hpp"
 #include "tweet.hpp"
 
-struct bayes {
+struct Bayes {
+    static std::vector<strand> stopWords;
     std::unordered_map<strand, int> positive;
     std::unordered_map<strand, int> negative;
+    std::unordered_map<strand, int> unique;
+    int positiveWords = 0;
+    int negativeWords = 0;
     std::vector<Tweet*> tweets;
-    int unclassified = 0;
-    int accuracy = 0;
+    double accuracy = 0;
 
     void inputTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     void classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile);
-    //void output(std::ofstream& out);
-    int calcSentiment(Tweet* t);
+    double naiveBayes(Tweet* t, std::unordered_map<strand, int>& frequency, double total);
+    void output(std::ofstream& out);
+    static bool isStopWord(strand* str);
 };

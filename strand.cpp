@@ -5,7 +5,7 @@ strand::strand() {
     m_data = nullptr;
 }
 strand::strand(int len) {
-    if(len < 0) throw std::invalid_argument("strand must be a positive length");
+    if(len < 0) throw std::invalid_argument("strand must be a frequency length");
     m_data = new char[len];
     m_capacity = len;
 }
@@ -316,7 +316,6 @@ std::ostream& operator<<(std::ostream& out, const strand& str) {
     std::ios_base::sync_with_stdio(false);
     for(int x = 0; x < str.m_size; x++) {
         std::cout << str[x];
-        //std::cout << (int)str[x] << " ";
     }
 
     return out;

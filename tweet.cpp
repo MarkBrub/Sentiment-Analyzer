@@ -1,16 +1,15 @@
 #include "tweet.hpp"
 
-Tweet::Tweet() {
+Tweet::Tweet() = default;
 
-}
-Tweet::Tweet(long long id, strand user) {
+Tweet::Tweet(long long id) {
     m_id = id;
-    m_user = user;
 }
 
 int Tweet::size() {
     return m_words.size();
 }
+
 strand& Tweet::operator[](int x) {
     return m_words[x];
 }

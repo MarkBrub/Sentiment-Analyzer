@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <chrono>
-#include "analyzer.hpp"
+//#include "analyzer.hpp"
+#include "bayes.hpp"
 
 int runTests() {
     return Catch::Session().run();
@@ -19,7 +20,7 @@ int main(int argc, char **argv) {
     std::ifstream testData(argv[3]);
     std::ifstream testTarget(argv[4]);
     std::ofstream out(argv[5]);
-    analyzer anal;
+    Bayes anal;
 
     anal.inputTweets(trainData, trainTarget);
     anal.classifyTweets(testData, testTarget);

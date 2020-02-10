@@ -81,7 +81,7 @@ public:
 
 //For use in std::unordered_map
 template <> struct std::hash<strand> {
-    size_t operator()(const strand str) const {
+    size_t operator()(const strand& str) const {
         //adapted from:
         // http://www.cse.yorku.ca/~oz/hash.html
         size_t h = 5381;

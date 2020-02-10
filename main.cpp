@@ -4,11 +4,9 @@
 #include <iostream>
 #include <chrono>
 #include "analyzer.hpp"
-//#include "bayes.hpp"
 
 int runTests() {
     return Catch::Session().run();
-    return 0;
 }
 
 int main(int argc, char **argv) {
@@ -16,12 +14,11 @@ int main(int argc, char **argv) {
 
     if(argc < 2) return runTests();
 
-    std::ios_base::sync_with_stdio(false);
     std::ifstream trainData(argv[1]);
     std::ifstream trainTarget(argv[2]);
     std::ifstream testData(argv[3]);
     std::ifstream testTarget(argv[4]);
-    std::ofstream out("output01.txt");
+    std::ofstream out(argv[5]);
     analyzer anal;
 
     anal.inputTweets(trainData, trainTarget);

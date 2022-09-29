@@ -3,6 +3,12 @@
 //A vector of stop words
 std::vector<strand> Bayes::stopWords = {"ourselves", "hers", "between", "yourself", "but", "again", "there", "about", "once", "during", "out", "very", "having", "with", "they", "own", "an", "be", "some", "for", "do", "its", "yours", "such", "into", "of", "most", "itself", "other", "off", "is", "s", "am", "or", "who", "as", "from", "him", "each", "the", "themselves", "until", "below", "are", "we", "these", "your", "his", "through", "don", "nor", "me", "were", "her", "more", "himself", "this", "down", "should", "our", "their", "while", "above", "both", "up", "to", "ours", "had", "she", "all", "no", "when", "at", "any", "before", "them", "same", "and", "been", "have", "in", "will", "on", "does", "yourselves", "then", "that", "because", "what", "over", "why", "so", "can", "did", "not", "now", "under", "he", "you", "herself", "has", "just", "where", "too", "only", "myself", "which", "those", "i", "after", "few", "whom", "t", "being", "if", "theirs", "my", "against", "a", "by", "doing", "it", "how", "further", "was", "here", "than"};
 
+Bayes::~Bayes() {
+    for (Tweet* tweet : tweets) {
+        delete tweet;
+    }
+}
+
 //stores frequency of words in training set
 void Bayes::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
     strand data(1024);
@@ -24,7 +30,7 @@ void Bayes::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
 
         //get the tweet sentiment as positive or negative
         int sentiment = (target[0] == '0') ? -1 : 1;
-        strand word(128);
+        strand word(512);
 
         //loop through the words in the tweet
         while(!data.empty()) {
@@ -34,6 +40,8 @@ void Bayes::inputTweets(std::ifstream& dataFile, std::ifstream& targetFile) {
                 word.toLower();
                 word.removePunctuation();
                 if(word.isURL()) continue;
+
+                //word.stemStrand();
 
                 //push the words into the appropriate unordered map
                 if(sentiment == 1) {
@@ -124,6 +132,8 @@ double Bayes::naiveBayes(Tweet* t, std::unordered_map<strand, int>& frequency, d
         strand* word = &(*t)[x]; //This line is cancer but if I put the tweets on the stack the program slows way down
         if(isStopWord(word)) continue;
         if(word->isURL()) continue;
+
+        //word->stemStrand();
 
         //Naive Bayes algorithm
         double freq = frequency[*word] + 1;

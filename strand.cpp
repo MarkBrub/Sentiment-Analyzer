@@ -31,7 +31,7 @@ strand::strand(char c) {
 
 //destructor
 strand::~strand() {
-    delete[] m_data;
+        delete[] m_data;
 }
 
 //assignment operators ---------------------------------------------------------------------------
@@ -457,4 +457,15 @@ bool strand::isURL() {
     if(m_size == 3) return false;
     if(m_data[0] == 'h' && m_data[1] == 't' && m_data[2] == 't' && m_data[3] == 'p') return true;
     return false;
+}
+
+
+void strand::stemStrand() {
+    char* c = c_str();
+    std::string temp = c;
+    delete[] c;
+    Porter2Stemmer::trim(temp);
+    Porter2Stemmer::stem(temp);
+    m_size = temp.size();
+    *this = temp.c_str();
 }

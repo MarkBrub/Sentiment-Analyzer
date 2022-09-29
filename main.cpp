@@ -20,6 +20,7 @@ int main(int argc, char **argv) {
     std::ifstream testData(argv[3]);
     std::ifstream testTarget(argv[4]);
     std::ofstream out(argv[5]);
+    
     Bayes anal;
 
     anal.inputTweets(trainData, trainTarget);

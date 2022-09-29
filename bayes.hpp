@@ -16,6 +16,8 @@ struct Bayes {
     std::vector<Tweet*> tweets;
     double accuracy = 0;
 
+    ~Bayes();
+
     void inputTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     void classifyTweets(std::ifstream& dataFile, std::ifstream& targetFile);
     double naiveBayes(Tweet* t, std::unordered_map<strand, int>& frequency, double total);

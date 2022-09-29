@@ -4,6 +4,9 @@
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
+#include <string>
+
+#include "stemmer.hpp"
 
 class strand {
     //The goal of this class is to implement many of the <string> functions so that the
@@ -77,6 +80,7 @@ public:
     void toLower();
     void removePunctuation();
     bool isURL();
+    void stemStrand();
 };
 
 //For use in std::unordered_map

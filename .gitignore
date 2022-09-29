@@ -4,6 +4,7 @@ build/
 cmake-build-debug/
 .idea/
 .vscode/
+.github/
 
 # Old files
 analyzer.cpp

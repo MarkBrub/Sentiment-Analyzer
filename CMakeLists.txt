@@ -17,5 +17,5 @@ foreach(file IN LISTS input01 input02 input03 input04 )
 endforeach()
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(${EXE_NAME} main.cpp strand.cpp bayes.cpp tweet.cpp stemmer.cpp)
+add_executable(${EXE_NAME} main.cpp strand.cpp bayes.cpp tweet.cpp)
 # add_executable(${EXE_NAME} main.cpp strand.cpp analyzer.cpp bayes.cpp tweet.cpp catch.cpp)

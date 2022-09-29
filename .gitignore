@@ -3,6 +3,18 @@
 build/
 cmake-build-debug/
 .idea/
+.vscode/
+
+# Old files
+analyzer.cpp
+analyzer.hpp
+
+# Too large files
+dev-test-data.csv
+dev-test-target.csv
+dev-train-data.csv
+dev-train-target.csv
+
 
 # Compiled Object files
 *.slo
